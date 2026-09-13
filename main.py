@@ -11,7 +11,7 @@ encoder = joblib.load("encoder.pkl")
 with open("metadata.json") as f:
     meta = json.load(f)
 
-models = {name: joblib.load(info["file"]) for name, info in meta["models"].items()}
+models = {name: joblib.load(info["file"]) for name, info in meta["models"].items() if info["live"]}
 categorical_columns = meta["categorical_columns"]
 numerical_columns = meta["numerical_columns"]
 feature_orders = meta["feature_orders"]
@@ -69,11 +69,12 @@ def build_feature_sets(raw: pd.DataFrame):
 
 @app.get("/")
 def root():
-    return {"status": "API is running", "best_model": best_model_name, "models_loaded": list(models.keys())}
+    return {"status": "API is running", "best_model": best_model_name, "live_models": list(models.keys())}
 
 
 @app.get("/metrics")
 def metrics():
+    # Static training-time numbers for ALL 7 models, regardless of which are live.
     return {name: info["metrics"] for name, info in meta["models"].items()}
 
 
@@ -84,11 +85,15 @@ def predict(candidate: Candidate):
 
     results = {}
     for name, info in meta["models"].items():
+        if not info["live"]:
+            results[name] = {"available": False}
+            continue
         model = models[name]
         X_input = feature_sets[info["feature_type"]]
         proba_change = float(model.predict_proba(X_input)[0][1])
         will_change = proba_change >= info["threshold"]
         results[name] = {
+            "available": True,
             "job_change_probability": round(proba_change, 4),
             "stay_probability": round(1 - proba_change, 4),
             "label": "Likely to Change Jobs" if will_change else "Likely to Stay",

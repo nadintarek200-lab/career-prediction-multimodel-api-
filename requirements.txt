@@ -4,5 +4,4 @@ scikit-learn==1.6.1
 pandas
 joblib
 pydantic
-xgboost
 imbalanced-learn
