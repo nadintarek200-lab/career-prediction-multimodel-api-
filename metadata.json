@@ -563,6 +563,7 @@
       "training_hours"
     ]
   },
+  "needs_xgboost_live": false,
   "models": {
     "KNN": {
       "file": "models/knn.pkl",
@@ -573,7 +574,8 @@
         "precision": 0.5174506828528073,
         "recall": 0.7141361256544503,
         "f1": 0.6000879894412671
-      }
+      },
+      "live": true
     },
     "LR + SMOTE": {
       "file": "models/lr_smote.pkl",
@@ -584,7 +586,8 @@
         "precision": 0.5305676855895196,
         "recall": 0.7633507853403141,
         "f1": 0.6260197509660799
-      }
+      },
+      "live": true
     },
     "FE LR + SMOTE": {
       "file": "models/fe_lr_smote.pkl",
@@ -595,7 +598,8 @@
         "precision": 0.5421956684092606,
         "recall": 0.7602094240837697,
         "f1": 0.6329555361813426
-      }
+      },
+      "live": true
     },
     "Baseline Random Forest": {
       "file": "models/baseline_random_forest.pkl",
@@ -606,7 +610,8 @@
         "precision": 0.576271186440678,
         "recall": 0.7476439790575916,
         "f1": 0.650865998176846
-      }
+      },
+      "live": true
     },
     "Tuned Random Forest": {
       "file": "models/tuned_random_forest.pkl",
@@ -617,10 +622,11 @@
         "precision": 0.5717703349282297,
         "recall": 0.7507853403141361,
         "f1": 0.6491625169760072
-      }
+      },
+      "live": true
     },
     "XGBoost + scale_pos_weight": {
-      "file": "models/xgboost_scale_pos_weight.pkl",
+      "file": null,
       "feature_type": "xgb",
       "threshold": 0.5,
       "metrics": {
@@ -628,10 +634,11 @@
         "precision": 0.5110073382254836,
         "recall": 0.8020942408376963,
         "f1": 0.6242868785656072
-      }
+      },
+      "live": false
     },
     "XGBoost + SMOTE": {
-      "file": "models/xgboost_smote.pkl",
+      "file": null,
       "feature_type": "xgb",
       "threshold": 0.5,
       "metrics": {
@@ -639,7 +646,8 @@
         "precision": 0.5587044534412956,
         "recall": 0.7225130890052356,
         "f1": 0.6301369863013698
-      }
+      },
+      "live": false
     }
   }
 }
